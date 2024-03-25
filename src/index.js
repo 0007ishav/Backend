@@ -32,3 +32,17 @@ const app = express()
 // DB connection approach 2 is writing db connection in diff. file
 
 connectDB()
+.then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is listening at port: ${process.env.PORT}`);
+    })
+})
+.then(() => {
+    app.on("error", () => {
+        console.log("Error", error);
+        throw error
+    })
+})
+.catch((err) => {
+    console.log("Mongo DB connecton failed !!", err);
+})
